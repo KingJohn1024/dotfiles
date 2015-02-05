@@ -1,7 +1,4 @@
 set nocompatible
-" source $VIMRUNTIME/vimrc_example.vim
-" source $VIMRUNTIME/mswin.vim
-" behave mswin
 
 " Start custom settings
 execute pathogen#infect()
@@ -51,7 +48,6 @@ set smartcase
 set showmatch
 set autoindent
 set ruler
-" set viminfo+=n$VIM/_viminfo
 set showcmd
 set history=1000
 set undolevels=1000
