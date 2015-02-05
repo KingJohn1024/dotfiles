@@ -1,2 +1,2 @@
-# dot_files
+# .files
 dot files!
