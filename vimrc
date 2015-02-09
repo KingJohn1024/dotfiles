@@ -1,4 +1,7 @@
 set nocompatible
+" source $VIMRUNTIME/vimrc_example.vim
+" source $VIMRUNTIME/mswin.vim
+" behave mswin
 
 " Start custom settings
 execute pathogen#infect()
@@ -8,10 +11,15 @@ set background=dark
 
 "Set Color Scheme and Font Options
 colorscheme kolor
-set guifont=Consolas:h12
+" set guifont=Consolas:h12
+set guifont=Neep\ 12
 
 " Reload .vimrc
 map <C-p> :source ~/.vimrc
+
+" CNTL-s Save
+" Make sure to disable <C-s> in .bashrc
+nnoremap <silent> <C-S> :update<CR>
 
 " Multiline tab map
 :vmap <TAB> >
@@ -48,6 +56,7 @@ set smartcase
 set showmatch
 set autoindent
 set ruler
+" set viminfo+=n$VIM/_viminfo
 set showcmd
 set history=1000
 set undolevels=1000
