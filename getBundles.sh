@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo starting vim plugin git clone...
+cd ~/.vim/bundle
 
 # Jedi : Using the jedi autocompletion library for VIM
 git clone --recursive https://github.com/davidhalter/jedi-vim.git
@@ -34,5 +35,8 @@ git clone --recursive https://github.com/zeis/vim-kolor.git
 
 # vim-surround : quoting/parenthesizing made simple
 git clone --recursive https://github.com/tpope/vim-surround.git
+
+# solarized : A proper color scheme
+git clone --recursive  https://github.com/altercation/vim-colors-solarized.git
 
 echo Complete.
