@@ -12,9 +12,13 @@ set background=dark
 "Set Color Scheme and Font Options
 " colorscheme kolor
 colorscheme solarized
-" Set the font based on gui type
+
+" Set the font, selection mode & autocomplete plugins based on gui type
 if has("gui_gtk2")
-    set guifont=Consolas\ 11
+  "  set guifont=Consolas\ 11 # temp comment, spacing issues on some Ubuntu
+  "  nodes
+  " not working set guifont=Droid\ Sans\ Mono
+  set guifont=Monospace 10
   " Shift + special movement key (<S-Left>, etc.) and mouse starts insert mode
   " Duplicate macvim_hig_shift_movement mac key selection style on linux
   set selectmode=mouse,key
@@ -44,25 +48,20 @@ if has("gui_gtk2")
   ino  <S-D-Down>     <S-C-End>
 
 elseif has("gui_macvim")
+    behave mswin
     set guifont=Consolas:h12
     let macvim_hig_shift_movement = 1
 elseif has("gui_win32")
     set guifont=Consolas:h11
+
+    "Jedi autocomplete - Only use on windws, YCM is much better but *nix only
+    let g:jedi#popup_select_first = 0
+    autocmd FileType python setlocal completeopt-=preview
 end
-set guifont=Consolas\ 11
 
-" set guifont=Consolas\ 12
-" set guifont=Neep\ 12
+" Set global python autocomplete settings
+autocmd FileType python setlocal completeopt-=preview
 
-" Shift highlighting
-" nmap <S-Up> v<Up>
-" nmap <S-Down> v<Down>
-" nmap <S-Left> v<Left>
-" nmap <S-Right> v<Right>
-" vmap <S-Up> <Up>
-" vmap <S-Down> <Down>
-" vmap <S-Left> <Left>
-" vmap <S-Right> <Right>
 
 " Reload .vimrc
 map <C-p> :source ~/.vimrc
@@ -77,13 +76,6 @@ nnoremap <silent> <C-S> :update<CR>
 
 " DISABLE pymode - rope plugin.  It was causing autocomplete to freeze
 let g:pymode_rope = 0
-
-" Invoke omnicomplete with superTab
-let g:SuperTabDefaultCompletionType = "<C-x><C-o>"
-
-"Jedi autocomplete
-let g:jedi#popup_select_first = 0
-autocmd FileType python setlocal completeopt-=preview
 
 "Setup default execution interpreter as python
 map <F4> :!python %<CR> 
