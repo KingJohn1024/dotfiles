@@ -1,8 +1,14 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# Remove old Intel Homebrew completions
+fpath=("${fpath[@]/\/usr\/local\/share\/zsh\/site-functions}")
+
+# Optional: add Apple Silicon Homebrew completions explicitly
+fpath+=('/opt/homebrew/share/zsh/site-functions')
+
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/jking/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Setup aliases for both intel and naitive home brew installs
 # Which ever one is first in the path will be used for brew and loading packages installed in both environments
@@ -12,6 +18,21 @@ alias ibrew='arch -x86_64 /usr/local/bin/brew'
 # ta-lib c files installed via homebrew
 export TA_LIBRARY_PATH=/opt/homebrew/Cellar/ta-lib/0.4.0/lib
 export TA_INCLUDE_PATH=/opt/homebrew/Cellar/ta-lib/0.4.0/include
+
+# Cairo specific libs
+## export DYLD_FALLBACK_LIBRARY_PATH=/opt/homebrew/Cellar/cairo/1.16.0_5/lib/:/usr/local/Cellar/fontconfig/2.13.1/lib/
+
+# Set pkg-config paths for Homebrew (M1 uses /opt/homebrew)
+export PKG_CONFIG_PATH="/opt/homebrew/lib/pkgconfig:/opt/homebrew/share/pkgconfig"
+
+# Set dynamic library path so WeasyPrint can find libgobject, etc.
+export DYLD_LIBRARY_PATH="/opt/homebrew/lib:$DYLD_LIBRARY_PATH"
+
+# Force cython to write cache files out of project scope
+export PYTHONPYCACHEPREFIX="$HOME/.cache/pycache"
+
+# Alias Agent Deck binary as "ad" shortcut
+alias ad="agent-deck"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -77,7 +98,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git bundler pip python)
+plugins=(git autoupdate)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -107,18 +128,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/jking/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/jking/miniforge3/etc/profile.d/conda.sh" ]; then
-        . "/Users/jking/miniforge3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/jking/miniforge3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
+export PATH="$HOME/miniforge3/bin:$PATH"
 
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+export PATH="$HOME/.local/bin:$PATH"
+
+# Machine-specific / private settings (not tracked in the dotfiles repo)
+[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
